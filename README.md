@@ -1,152 +1,120 @@
-Pill Reminder & Monitoring System
-Overview
-The Pill Reminder & Monitoring System is a Streamlit-based application designed to assist users in tracking their pill intake. The system allows for pill detection, identity verification, and alerts (SMS and email) to caregivers, ensuring the user takes their medication on time. The application leverages YOLOv8 for pill detection, QR code and face recognition for identity verification, and integrates with Twilio and SMTP for SMS and email notifications.
+# 💊 Pill Reminder & Monitoring System
 
-Features
-Pill Validation: Upload a picture of a pill, and the app will use YOLOv8 to detect the pill.
+A Streamlit-based application that helps users stay on track with their medication. The system ensures pill intake is validated through computer vision, identity is verified, and caregivers are notified via SMS and email.
 
-Identity Verification: Users can choose between QR code verification or face recognition to ensure the correct person is taking the medication.
+---
 
-Alert Notifications: Sends SMS and email alerts to caregivers upon successful pill detection or identity verification.
+## 📌 Features
 
-History Logging: Tracks and logs pill intake events.
+- **Pill Detection:** Detects pills in uploaded images using YOLOv8.
+- **Identity Verification:** Verifies the user via QR Code or Face Recognition.
+- **Alert Notifications:** Sends SMS (via Twilio) and Email (via SMTP/Gmail) to caregivers upon successful intake.
+- **History Logging:** Tracks and logs all pill intake events with timestamps.
 
-Technologies Used
-Streamlit: For building the web interface.
+---
 
-YOLOv8: For pill detection.
+## 🛠️ Technologies Used
 
-QR Code & Face Recognition: For identity verification.
+- **Streamlit** – Web UI
+- **YOLOv8** – Pill detection
+- **OpenCV** – Image processing
+- **face_recognition** – Face verification
+- **pyzbar** – QR Code scanning
+- **Twilio** – SMS notifications
+- **smtplib** – Email notifications
+- **Pandas** – Logging history
 
-Twilio: For SMS alerts.
+---
 
-SMTP (Gmail): For email notifications.
+## 📁 Project Structure
 
-OpenCV: For image processing and detection.
+pill_reminder/ ├── app.py # Main Streamlit app ├── utils/ │ ├── yolov_utils.py # YOLOv8 detection │ ├── qr_utils.py # QR code verification │ ├── face_utils.py # Face recognition │ └── logger.py # Logging functions ├── notifications.py # SMS & Email alerts ├── dataset/ │ └── pillsPicture/ # Pill image dataset ├── logs/ │ └── pill_log.csv # Log history └── requirements.txt # Python dependencies
 
-Pandas: For logging and displaying history.
-
-Project Structure
-graphql
+yaml
 Copy
 Edit
-pill_reminder/
-├── app.py              # Main Streamlit app
-├── utils/
-│   ├── yolov_utils.py  # YOLOv8 model and pill detection functions
-│   ├── qr_utils.py     # QR code verification functions
-│   ├── face_utils.py   # Face recognition functions
-│   ├── logger.py       # Logging functions for pill intake
-├── notifications.py    # Contains functions to send SMS and email alerts
-├── dataset/
-│   └── pillsPicture/   # Folder for storing images of pills
-├── logs/
-│   └── pill_log.csv    # Log file for pill intake history
-└── requirements.txt    # Python dependencies
-Installation
-Prerequisites
-Make sure you have Python 3.7+ installed. You will also need an active Twilio account for SMS notifications and a Gmail account for email notifications.
 
-Install Dependencies
-Create a virtual environment and install the required dependencies by running the following commands:
+---
 
-Clone the repository:
+## ⚙️ Installation
 
-bash
-Copy
-Edit
+### Prerequisites
+
+- Python 3.7+
+- Twilio account for SMS
+- Gmail account for email
+
+### Setup Instructions
+
+```bash
+# Clone the repository
 git clone https://github.com/your-username/pill-reminder.git
 cd pill-reminder
-Create a virtual environment (optional but recommended):
 
-bash
-Copy
-Edit
+# Create and activate a virtual environment (optional)
 python -m venv venv
-source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
-Install the required Python packages:
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-bash
-Copy
-Edit
+# Install dependencies
 pip install -r requirements.txt
-Install additional dependencies for Twilio and email:
+pip install twilio smtplib opencv-python
+YOLOv8 Model
+Make sure the necessary YOLOv8 model files are downloaded and available in the appropriate folders (handled in yolov_utils.py).
 
-bash
+🔐 Configuration
+Twilio Setup
+Update the following variables in app.py:
+
+python
 Copy
 Edit
-pip install twilio smtplib opencv-python
-Ensure you have the necessary models for YOLOv8 and any other model files. These should be placed in the appropriate folders (yolov_utils.py handles YOLOv8).
+TWILIO_ACCOUNT_SID = "your_sid"
+TWILIO_AUTH_TOKEN = "your_auth_token"
+TWILIO_PHONE_NUMBER = "your_twilio_number"
+Gmail Setup
+Update the email configuration in app.py:
 
-Twilio & Email Configuration
-Twilio: Set up your Twilio account and get your Account SID, Auth Token, and Phone Number from Twilio Console.
+python
+Copy
+Edit
+EMAIL_ADDRESS = "your_email@gmail.com"
+EMAIL_PASSWORD = "your_email_password"  # Consider using App Passwords
+Note: If you use Gmail with 2-Step Verification, enable App Passwords.
 
-Replace TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_PHONE_NUMBER in app.py with your own credentials.
-
-Email: Use your Gmail account for email notifications.
-
-Replace EMAIL_ADDRESS and EMAIL_PASSWORD in app.py with your Gmail credentials.
-
-If using Gmail, you may need to enable Less Secure Apps or create an App Password if 2-Step Verification is enabled. More details: Google's App Passwords.
-
-Running the Application
-To run the application, execute the following command:
-
+🚀 Running the App
 bash
 Copy
 Edit
 streamlit run app.py
-This will launch the Streamlit app in your default browser.
+The app will launch in your default web browser.
 
-How to Use the App
-Pill Validation:
-
+🧪 How to Use
+✅ Pill Validation
 Upload an image of the pill.
 
-Click "Validate Pill" to let the app detect the pill using YOLOv8.
+Click "Validate Pill".
 
-If the pill is detected, you will see a success message, and a notification will be sent to the caregiver (SMS and email).
+If detected, success message is shown and notifications are sent.
 
-Identity Verification:
+✅ Identity Verification
+Choose QR Code or Face Recognition.
 
-Choose either QR Code or Face Recognition for verifying the identity of the person taking the pill.
+Upload a matching image.
 
-Upload the respective image.
+Upon verification, notifications are sent.
 
-If verification is successful, a notification will be sent to the caregiver.
+📖 History
+View past pill intake events with timestamps.
 
-History:
+Check verification status and detection success.
 
-View a log of past pill intake events, which includes timestamps and whether the pill was successfully detected and verified.
+🧯 Troubleshooting
+❌ SMS or Email Not Sent?
+Double-check Twilio and Gmail credentials.
 
-Dependencies
-streamlit: For the app interface.
+Make sure Gmail allows third-party apps or use App Passwords.
 
-opencv-python: For image processing and detection.
+❌ Detection/Verification Fails?
+Ensure YOLO model files are in place.
 
-twilio: For sending SMS alerts.
-
-smtplib: For sending email alerts.
-
-pandas: For logging and displaying the pill intake history.
-
-yolov8: For YOLO-based pill detection.
-
-face_recognition: For face recognition.
-
-pyzbar: For QR code scanning.
-
-Troubleshooting
-No SMS or Email Sent:
-
-Check if your Twilio account SID, Auth Token, and phone number are correctly configured.
-
-Ensure the Gmail account is properly set up for sending emails.
-
-Verify that the images uploaded for pill detection or identity verification are clear and properly formatted.
-
-Image Detection Fails:
-
-Ensure you have the necessary YOLOv8 model files.
-
-Check if the image quality is sufficient for detection
+Use clear, high-resolution images.
