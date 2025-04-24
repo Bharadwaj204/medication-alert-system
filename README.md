@@ -28,11 +28,20 @@ A Streamlit-based application that helps users stay on track with their medicati
 
 ## 📁 Project Structure
 
-pill_reminder/ ├── app.py # Main Streamlit app ├── utils/ │ ├── yolov_utils.py # YOLOv8 detection │ ├── qr_utils.py # QR code verification │ ├── face_utils.py # Face recognition │ └── logger.py # Logging functions ├── notifications.py # SMS & Email alerts ├── dataset/ │ └── pillsPicture/ # Pill image dataset ├── logs/ │ └── pill_log.csv # Log history └── requirements.txt # Python dependencies
+pill_reminder/
+├── app.py                    # Main Streamlit app
+├── utils/                    # Utility modules
+│   ├── yolov_utils.py        # YOLOv8 detection functions
+│   ├── qr_utils.py           # QR code verification functions
+│   ├── face_utils.py         # Face recognition functions
+│   └── logger.py             # Pill intake logging functions
+├── notifications.py          # Functions for sending SMS and email alerts
+├── dataset/
+│   └── pillsPicture/         # Folder to store pill images
+├── logs/
+│   └── pill_log.csv          # CSV file logging pill intake history
+├── requirements.txt          # Required Python packages
 
-yaml
-Copy
-Edit
 
 ---
 
